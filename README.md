@@ -1,18 +1,16 @@
-# 🏦 Fintech Data Engineering Challenge — GCP + dbt + LookML
+# 🏦 PayBridge Financeira — Modern Data Stack on GCP
 
-> **Candidato:** Edson Machado  
-> **Vaga:** Engenheiro de Dados GCP (DBT e ETL) SR  
 > **Stack:** Python · dbt Core · BigQuery · Cloud Storage · LookML · Looker · AWS EC2
 
 ---
 
-## Cenário
+## Contexto
 
-A **PayBridge Financeira** é uma fintech brasileira de médio porte que processa pagamentos B2B e oferece crédito para PMEs. Após anos operando com um banco de dados PostgreSQL monolítico e planilhas manuais, a empresa está migrando para uma arquitetura analítica moderna no GCP.
+A **PayBridge Financeira** é uma fintech brasileira de médio porte que processa pagamentos B2B e oferece crédito para PMEs. Após anos operando com um banco de dados PostgreSQL monolítico e planilhas manuais, a empresa migrou para uma arquitetura analítica moderna no GCP.
 
-**Problema real:** a área de risco e o CFO não conseguem visualizar exposição de crédito, inadimplência e TPV em tempo real. Cada relatório é construído manualmente, com dados inconsistentes entre áreas.
+**O problema:** a área de risco e o CFO não conseguiam visualizar exposição de crédito, inadimplência e TPV em tempo real. Cada relatório era construído manualmente, com dados inconsistentes entre áreas e sem rastreabilidade.
 
-**Objetivo deste projeto:** construir do zero o pipeline completo — da ingestão bruta até a camada semântica no Looker — com governança, qualidade de dados e rastreabilidade, demonstrando as melhores práticas exigidas pela vaga.
+**A solução:** pipeline completo de dados — da ingestão bruta até a camada semântica no Looker — com governança, qualidade de dados e auditoria em cada camada.
 
 ---
 
@@ -228,21 +226,12 @@ Veja [`GOVERNANCE.md`](./GOVERNANCE.md) para detalhes sobre:
 
 ---
 
-## Demonstração
+## Execução e Validação
 
-> 📹 **Vídeo de demonstração:** [link após gravação]
+Para verificar o pipeline funcionando de ponta a ponta:
 
-**Roteiro do vídeo (2–3 min):**
-1. Execução do pipeline Python (extração + carga)
-2. `dbt run` + `dbt test` no terminal
-3. BigQuery Console — marts com dados finais
-4. Looker — Explore de risco de crédito ao vivo
-5. Dashboard executivo com TPV, MDR e inadimplência
-
----
-
-## Contato
-
-**Edson Machado**  
-Analytics Engineering Coordinator  
-[linkedin.com/in/edsonmachadosilva](https://linkedin.com/in/edsonmachadosilva) · edsonirvana@gmail.com
+1. Rode `./scripts/run_pipeline.sh` — extração, carga e transformações dbt em sequência
+2. No terminal: `dbt run` + `dbt test` com saída dos testes de qualidade
+3. BigQuery Console — inspecione os marts particionados com dados finais
+4. Looker — abra o Explore de risco de crédito e filtre por classificação BACEN
+5. Dashboard executivo com TPV, MDR e inadimplência por período
