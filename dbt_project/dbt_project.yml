@@ -1,0 +1,76 @@
+name: 'paybridge'
+version: '1.0.0'
+config-version: 2
+
+profile: 'paybridge'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+vars:
+  # Janela de processamento incremental
+  start_date: '2022-01-01'
+  # Tolerância para reconciliação financeira (R$)
+  reconciliation_tolerance_brl: 0.01
+  # Limiar de NPL (dias em atraso)
+  npl_threshold_days: 90
+
+models:
+  paybridge:
+    staging:
+      +materialized: view
+      +schema: staging
+      +tags: ['staging', 'daily']
+      +meta:
+        owner: "data-engineering"
+        layer: "staging"
+
+    intermediate:
+      +materialized: table
+      +schema: intermediate
+      +tags: ['intermediate', 'daily']
+      +meta:
+        owner: "data-engineering"
+        layer: "intermediate"
+
+    marts:
+      financial:
+        +materialized: table
+        +schema: analytics
+        +tags: ['mart', 'financial', 'daily']
+        +partition_by:
+          field: "summary_date"
+          data_type: "date"
+          granularity: "day"
+        +meta:
+          owner: "data-engineering"
+          domain: "financial"
+          consumers: ["looker", "power_bi", "finance_team"]
+
+      risk:
+        +materialized: table
+        +schema: analytics
+        +tags: ['mart', 'risk', 'daily']
+        +meta:
+          owner: "data-engineering"
+          domain: "risk"
+          consumers: ["looker", "risk_team"]
+          sensitivity: "confidential"
+
+      operations:
+        +materialized: table
+        +schema: analytics
+        +tags: ['mart', 'operations', 'daily']
+        +meta:
+          owner: "data-engineering"
+          domain: "operations"
+          consumers: ["looker", "ops_team"]

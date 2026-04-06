@@ -1,0 +1,7 @@
+google-cloud-bigquery>=3.13.0
+google-cloud-storage>=2.14.0
+pandas>=2.1.0
+pandas-gbq>=0.21.0
+psycopg2-binary>=2.9.9
+dbt-bigquery>=1.8.0
+dbt-utils>=1.1.1
