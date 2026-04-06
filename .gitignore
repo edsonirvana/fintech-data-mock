@@ -1,0 +1,56 @@
+# ─── Chaves e credenciais — NUNCA commitar ───────────────────────────────────
+infra/keys/
+*.json
+!packages.json
+!package-lock.json
+.env
+.env.*
+!.env.example
+*service_account*
+*credentials*
+*secret*
+
+# ─── dbt ─────────────────────────────────────────────────────────────────────
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
+dbt_project/profiles.yml
+
+# ─── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.Python
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+*.coverage
+.mypy_cache/
+
+# ─── Dados locais ────────────────────────────────────────────────────────────
+data/
+*.csv
+*.parquet
+*.avro
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ─── IDE ─────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ─── Terraform ───────────────────────────────────────────────────────────────
+infra/terraform/.terraform/
+infra/terraform/*.tfstate
+infra/terraform/*.tfstate.backup
+infra/terraform/*.tfvars
